@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OefeningBlogEF.Models;
+using OefeningBlogEF.Services;
 
 namespace OefeningBlogEF.Controllers
 {
@@ -7,7 +8,12 @@ namespace OefeningBlogEF.Controllers
     [ApiController]
     public class PostController : ControllerBase
     {
+        private readonly IPostRepository _postRepository;
 
+        public PostController(IPostRepository postRepository)
+        {
+            _postRepository = postRepository;
+        }
         
         [HttpGet]
         [Route("GetCategories")]

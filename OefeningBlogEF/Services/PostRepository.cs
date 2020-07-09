@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using OefeningBlogEF.Entities;
 
 namespace OefeningBlogEF.Services
 {
@@ -12,5 +10,12 @@ namespace OefeningBlogEF.Services
 
     public class PostRepository : IPostRepository
     {
+        private readonly IMapper _mapper;
+        private readonly BlogContext _blogContext;
+
+        public PostRepository(BlogContext blogContext, IMapper mapper)
+        {
+            _mapper = mapper;
+        }
     }
 }
