@@ -44,7 +44,12 @@ namespace OefeningBlogEF.Controllers
         [Route("GetPosts")]
         public IActionResult GetPosts(int categoryId)
         {
-            return Ok();
+            var posts = _postRepository.GetPostsByCategoryId(categoryId).ToList();
+
+            if (posts.Count == 0)
+                return NotFound();
+
+            return Ok(posts);
         }
 
         [HttpGet]

@@ -10,6 +10,9 @@ namespace OefeningBlogEF.Services
     {
         IEnumerable<Models.Category> GetCategories();
         Models.Category AddCategory(PostCategory model);
+
+        IEnumerable<Models.Post> GetPostsByCategoryId(int categoryId);
+        //Models.Post AddPost(PostForCreate )
     }
 
     public class PostRepository : IPostRepository
@@ -36,6 +39,11 @@ namespace OefeningBlogEF.Services
             _blogContext.SaveChanges();
 
             return _mapper.Map<Models.Category>(newCategory);
+        }
+
+        public IEnumerable<Models.Post> GetPostsByCategoryId(int categoryId)
+        {
+            return _blogContext.Posts.Where(p => p.CategoryId == categoryId).Select(p => _mapper.Map<Models.Post>(p));
         }
     }
 }
