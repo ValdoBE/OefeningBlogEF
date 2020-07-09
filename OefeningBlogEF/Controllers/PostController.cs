@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OefeningBlogEF.Models;
 using OefeningBlogEF.Services;
+using System.Linq;
 
 namespace OefeningBlogEF.Controllers
 {
@@ -19,7 +20,24 @@ namespace OefeningBlogEF.Controllers
         [Route("GetCategories")]
         public IActionResult GetCategories()
         {
-            return Ok();
+            var categories = _postRepository.GetCategories().ToList();
+
+            if (categories.Count == 0)
+                return NotFound();
+
+            return Ok(categories);
+        }
+
+        [HttpPost]
+        [Route("AddCategory")]
+        public IActionResult AddCategory(PostCategory model)
+        {
+            var newCategory = _postRepository.AddCategory(model);
+
+            return CreatedAtAction(
+               nameof(AddCategory),
+               new { id = newCategory.Id},
+               newCategory);
         }
 
         [HttpGet]

@@ -6,6 +6,8 @@ namespace OefeningBlogEF
     {
         public MappingProfile()
         {
+            CreateMap<Entities.Category, Models.Category>();
+            CreateMap<Models.PostCategory, Entities.Category>();
         }
     }
 }
